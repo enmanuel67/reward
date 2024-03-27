@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Subir Archivos</h1>
+
+        <form action="upload.php" method="post" enctype="multipart/form-data">
+            <label for="store">Selecciona la tienda:</label>
+            <select name="store" id="store" required>
+                <option value="36960">Tienda 36960</option>
+                <option value="11565">Tienda 11565</option>
+            </select>
+
+            <br>
+
+            <label for="file">Selecciona archivos:</label>
+            <input type="file" name="files[]" id="file" multiple accept="image/*,video/*" required>
+
+            <button type="button" onclick="startSlideshow()">Iniciar Presentación</button>
+        </form>
+    </div>
+
+    <div class="swiper-container">
+        <div class="swiper-wrapper" id="swiper-wrapper"></div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.16/mediaelement-and-player.min.js"></script>
+    <script>
+        function startSlideshow() {
+            // Obtener la lista de archivos seleccionados
+            var files = document.getElementById('file').files;
+            var swiperWrapper = document.getElementById('swiper-wrapper');
+
+            if (files.length > 0) {
+                // Limpiar el contenedor de la presentación de diapositivas
+                swiperWrapper.innerHTML = '';
+
+                // Iterar sobre cada archivo
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    var swiperSlide = document.createElement('div');
+
+                    if (file.type.startsWith('image/')) {
+                        // Si es una imagen, agregarla a la presentación de diapositivas
+                        var img = document.createElement('img');
+                        img.src = URL.createObjectURL(file);
+                        swiperSlide.appendChild(img);
+                    } else if (file.type.startsWith('video/')) {
+                        // Si es un video, agregarlo a la presentación de diapositivas usando MediaElement.js
+                        var video = document.createElement('video');
+                        video.src = URL.createObjectURL(file);
+                        video.controls = true;
+                        swiperSlide.appendChild(video);
+
+                        // Inicializar MediaElement.js
+                        var player = new MediaElementPlayer(video, {});
+                    }
+
+                    swiperSlide.classList.add('swiper-slide');
+                    swiperWrapper.appendChild(swiperSlide);
+                }
+
+                // Inicializar Swiper
+                var swiper = new Swiper('.swiper-container', {
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+            } else {
+                alert('Selecciona al menos un archivo antes de iniciar la presentación.');
+            }
+        }
+    </script>
+</body>
+</html>

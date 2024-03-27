@@ -1,0 +1,58 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    box-sizing: border-box;
+
+}
+
+.profile {
+    background-color: #fff;
+    max-width: 400px;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    flex: 1;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: auto;
+}
+
+.profile h2 {
+    text-align: center;
+    color: #333;
+}
+
+.profile p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.profile p strong {
+    color: #007bff;
+}
+
+.online p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #007bff;
+}
+
+.online p strong{
+    font-size: 16px;
+    line-height: 1.6;
+    color: #087c50;
+}
+
+
+
+
+
